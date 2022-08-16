@@ -39,7 +39,7 @@ interface IForm {
 }
 
 function TodoList(){
-    const { register, watch, handleSubmit, formState:{errors}, setError} = useForm<IForm>(
+    const { register, handleSubmit, formState:{errors}, setError} = useForm<IForm>(
         {defaultValues: {
             email:"@naver.com"
         }}
