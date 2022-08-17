@@ -1,6 +1,50 @@
 import { categories, IToDo, toDoState } from './atoms';
 import { useSetRecoilState } from "recoil";
 import React from 'react';
+import styled from 'styled-components';
+
+const ListForm = styled.form`
+    display: flex;
+    align-items: center;
+    width: 100%;
+`
+
+const DateBox = styled.div`
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 40px;
+    font-size: 14px;
+`
+
+const ToDoBox = styled.div`
+    display: flex;
+    align-items: center;
+`
+
+const ToDoBtn = styled.button`
+    color: white;
+    margin-right: 10px;
+    background: none;
+    border: 1px solid white;
+    border-radius: 3px;
+    padding: 5px 15px;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background 0.5s linear;
+    &:hover{
+        font-weight: 600;
+        background: #d5fe48;
+        color: black;
+        border: none;
+    }
+`
+
+const ToDoItem = styled.input`
+    color: ${props=> props.theme.textColor};
+    background: none;
+    border: none;
+`
 
 function ToDo({text, category, id, startline, deadline}: IToDo){
     const setToDos = useSetRecoilState(toDoState)
@@ -32,16 +76,21 @@ function ToDo({text, category, id, startline, deadline}: IToDo){
         })
     }
     return(
-        <form>
-                <input defaultValue={text} onChange={onChange}/>
-                {category !== categories.TO_DO &&<button name={categories.TO_DO}onClick={onClick}>To Do</button>}
-                {category !== categories.DOING && <button name={categories.DOING} onClick={onClick}>Doing</button>}
-                {category !== categories.DONE && <button name={categories.DONE} onClick={onClick}>Done</button>}
-                <button onClick={onDelete}>x</button>
-                <span>startline: {startline.replace('T', '\n')}</span>
-                <span>deadline: {deadline.replace('T', '\n')}</span>
-                {/* onClick이벤트에서 인자를 넘기고 싶을때는 onClick={()=>함수(인자)} 이런식으로 익명함수안에 함수(인자) 기입 */}
-        </form>
+        <ListForm>
+            <ToDoBox>
+                <ToDoItem defaultValue={text} onChange={onChange}/>
+                {category !== categories.TO_DO &&<ToDoBtn name={categories.TO_DO}onClick={onClick}>To Do</ToDoBtn>}
+                {category !== categories.DOING && <ToDoBtn name={categories.DOING} onClick={onClick}>Doing</ToDoBtn>}
+                {category !== categories.DONE && <ToDoBtn name={categories.DONE} onClick={onClick}>Done</ToDoBtn>}
+                <ToDoBtn onClick={onDelete}>x</ToDoBtn>
+            </ToDoBox>
+            <DateBox>
+                <span>Start Time : {startline.replace('T', ' ')}</span>
+                <br/>
+                <span>End Time : {deadline.replace('T', ' ')}</span>
+            </DateBox>
+            {/* onClick이벤트에서 인자를 넘기고 싶을때는 onClick={()=>함수(인자)} 이런식으로 익명함수안에 함수(인자) 기입 */}
+        </ListForm>
     )
 }
 

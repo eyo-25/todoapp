@@ -1,6 +1,7 @@
 import { createGlobalStyle, ThemeProvider, } from 'styled-components'
 import { darkTheme, lightTheme } from "./theme";
 import TodoList from './component/TodoList';
+import { Router } from './Router';
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -53,9 +54,9 @@ table {
   box-sizing: border-box;
 }
 body {
-  font-family: 'Roboto', sans-serif;
   background-color: ${(props)=>props.theme.bgColor};
   color: ${(props)=>props.theme.textColor};
+  font-family: 'NotoSansKR', sans-serif;
 }
 a {
   text-decoration:none;
@@ -67,8 +68,8 @@ function App() {
   return (
     <>
       <ThemeProvider theme={darkTheme}>
+        <Router />
         <GlobalStyle/>
-        <TodoList/>
       </ThemeProvider>
     </>
   );

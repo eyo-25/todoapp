@@ -38,7 +38,7 @@ interface IForm {
     extraError?: string;
 }
 
-function TodoList(){
+function Formpractice(){
     const { register, handleSubmit, formState:{errors}, setError} = useForm<IForm>(
         {defaultValues: {
             email:"@naver.com"
@@ -107,4 +107,4 @@ function TodoList(){
     )
 }
 
-export default TodoList;
+export default Formpractice;
